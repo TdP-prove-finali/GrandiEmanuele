@@ -109,7 +109,7 @@
           </Tab>
           <Tab fx:id="tab2" style="-fx-text-base-color: black; -fx-font-weight: bold; -fx-background-color: #E0FFFF; -fx-border-width: 2px 2px 0 2px; -fx-border-color: #DAA520;" text="Maratona">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" style="-fx-background-color: #FDF5E6;">
+              <AnchorPane fx:id="n2" minHeight="0.0" minWidth="0.0" style="-fx-background-color: #FDF5E6;">
                      <children>
                         <ComboBox fx:id="cmbGen2" layoutX="422.0" layoutY="89.0" prefWidth="150.0" />
                         <TextField fx:id="TxtDurataMax" layoutX="422.0" layoutY="160.0" />
@@ -119,9 +119,9 @@
                            </font>
                         </Label>
                         <TextField fx:id="TxtVotomin" layoutX="422.0" layoutY="226.0" />
-                        <CheckBox layoutX="681.0" layoutY="93.0" mnemonicParsing="false" text="Netflix" />
-                        <CheckBox layoutX="681.0" layoutY="131.0" mnemonicParsing="false" text="Prime Video" />
-                        <CheckBox layoutX="682.0" layoutY="170.0" mnemonicParsing="false" text="Disney +" />
+                        <CheckBox fx:id="netflix2" layoutX="681.0" layoutY="93.0" mnemonicParsing="false" text="Netflix" />
+                        <CheckBox fx:id="prime2" layoutX="681.0" layoutY="131.0" mnemonicParsing="false" text="Prime Video" />
+                        <CheckBox fx:id="disneyplus2" layoutX="682.0" layoutY="170.0" mnemonicParsing="false" text="Disney +" />
                         <Slider fx:id="slNud" blockIncrement="20.0" layoutX="146.0" layoutY="83.0" majorTickUnit="1.0" max="3.0" showTickLabels="true" showTickMarks="true" value="3.0" />
                         <Slider fx:id="slPau" layoutX="146.0" layoutY="141.0" majorTickUnit="1.0" max="3.0" showTickLabels="true" showTickMarks="true" value="3.0" />
                         <Slider fx:id="slAlc" layoutX="146.0" layoutY="195.0" majorTickUnit="1.0" max="3.0" showTickLabels="true" showTickMarks="true" value="3.0" />
@@ -184,6 +184,8 @@
                               <Font size="18.0" />
                            </font>
                         </Text>
+                        <ComboBox fx:id="cmbAnno2" layoutX="676.0" layoutY="226.0" prefWidth="150.0" />
+                        <Label layoutX="737.0" layoutY="205.0" text="ANNO" />
                      </children>
                   </AnchorPane>
             </content>

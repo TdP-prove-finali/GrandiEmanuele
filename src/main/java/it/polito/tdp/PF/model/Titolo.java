@@ -24,10 +24,10 @@ public class Titolo implements Comparable<Titolo> {
 	}
 	@Override
 	public String toString() {
-		return this.Nome+" ("+this.anno+")";
+		return this.Nome+" ("+this.anno+")"+" "+this.durata+" "+this.voto;
 	}
 	public Titolo(String nome, int anno, double voto, int durata, String genere, int nudita, int violenza,
-			int alcool, int paura, String trama) {
+			int alcool, int paura, String trama,String piattaforma) {
 		super();
 		Nome = nome;
 		this.anno = anno;
@@ -39,6 +39,7 @@ public class Titolo implements Comparable<Titolo> {
 		this.alcool = alcool;
 		this.paura = paura;
 		this.trama = trama;
+		this.Piattaforma=piattaforma;
 	}
 	public String getNome() {
 		return Nome;
@@ -105,8 +106,11 @@ public class Titolo implements Comparable<Titolo> {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((Nome == null) ? 0 : Nome.hashCode());
+		result = prime * result + anno;
 		return result;
 	}
+	
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -120,6 +124,8 @@ public class Titolo implements Comparable<Titolo> {
 			if (other.Nome != null)
 				return false;
 		} else if (!Nome.equals(other.Nome))
+			return false;
+		if (anno != other.anno)
 			return false;
 		return true;
 	}
