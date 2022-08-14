@@ -1,6 +1,7 @@
 package it.polito.tdp.PF;
 
 import java.net.URL;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -17,7 +18,7 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.image.ImageView;
+
 import javafx.scene.text.Text;
 
 public class FXMLController {
@@ -109,8 +110,7 @@ public class FXMLController {
     @FXML
     private CheckBox disneyplus;
 
-    @FXML
-    private ImageView image;
+   
 
     @FXML
     private CheckBox netflix;
@@ -540,8 +540,6 @@ cmbAnna.valueProperty().setValue(null);
     }
 
 }
-
-
 
 
 
