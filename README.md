@@ -4,7 +4,7 @@ SOFTWARE PER LA GENERAZIONE AUTOMATICA DI UNA MARATONA CINEMATOGRAFICA
 Istruzioni per l'installazione dell'applicazione
 
 Effettuare il fork del progetto e clonare sul proprio editor (ad esempio Eclipse) il progetto al link: https://github.com/TdP-prove-finali/GrandiEmanuele
-Importare sul proprio server locale il database "imdb" situato all'interno del repository (utilizzare rileva codifica autonomamente)
+Importare sul proprio server locale il database "imdb" situato all'interno del repository (eseguire file sql e utilizzare "rileva codifica autonomamente")
 Modificare, all'interno della classe ConnectDB, la password di accesso al Database
 
 Aprire il progetto e lanciare la classe Main
