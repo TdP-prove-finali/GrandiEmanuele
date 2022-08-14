@@ -1,4 +1,4 @@
-Software per la generazione automatica di una Maratona Cinematografica
+SOFTWARE PER LA GENERAZIONE AUTOMATICA DI UNA MARATONA CINEMATOGRAFICA
 
 
 Istruzioni per l'installazione dell'applicazione
