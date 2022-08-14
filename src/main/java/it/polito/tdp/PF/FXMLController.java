@@ -23,11 +23,16 @@ import javafx.scene.text.Text;
 public class FXMLController {
 	
 	private Model model;
+	
+	private List<Titolo>titoli;
 
     @FXML
     private ResourceBundle resources;
     @FXML
     private CheckBox netflix2;
+    
+    @FXML
+    private ComboBox<Integer> cmbAnno3;
     
     @FXML
     private CheckBox prime2;
@@ -36,7 +41,7 @@ public class FXMLController {
     private CheckBox disneyplus2;
     
     @FXML
-    private ComboBox<String> cmbAnno2;
+    private ComboBox<Integer> cmbAnno2;
 
     @FXML
     private URL location;
@@ -90,7 +95,7 @@ public class FXMLController {
     private Button btnresetR;
 
     @FXML
-    private ComboBox<String> cmbAnno;
+    private ComboBox<Integer> cmbAnno;
 
     @FXML
     private ComboBox<String> cmbGen2;
@@ -137,41 +142,70 @@ public class FXMLController {
     @FXML
     private Text txtValMed;
     
+    @FXML
+    private ComboBox<Integer> cmbAnna;
+
+    
     
     @FXML
     void hndlrc(ActionEvent event) {
+    	btnresetR.setDisable(false);
+    	TxtTrama.clear();
+    	ValutMigli.setText("Valutazione Migliore");
+    	
     	TxtArea.clear();
+    	TxtArea.setStyle("-fx-text-fill: black");
     	CmbTitoli.getItems().clear();
-    	List <Titolo>titoli=new ArrayList<Titolo>();
+    	titoli=new ArrayList<Titolo>();
 if(cmbTipo.getValue()==null) {
 	TxtArea.setText("Scegliere Film o Serie Tv");
+	TxtArea.setStyle("-fx-text-fill: red");
 	return;
 }
     	if(!netflix.isSelected() && !prime.isSelected() && !disneyplus.isSelected()) {
     		TxtArea.setText("Scegliere Almeno una Piattaforma");
+    		TxtArea.setStyle("-fx-text-fill: red");
     		return;	
     	}
     	
-    	if(comboGen.getValue()==null && cmbAnno.getValue()==null) {
-    		TxtArea.setText("Scegliere Almeno un genere o un Anno massimo di uscita del Titolo");
+    	if(comboGen.getValue()==null && (cmbAnno.getValue()==null || cmbAnna.getValue()==null) ){
+    		TxtArea.setText("Scegliere Almeno un genere o un periodo di uscita del Titolo");
+    		TxtArea.setStyle("-fx-text-fill: red");
     		return;
     	}
     	if(TxtDurata.getText().equals("")) {
     		TxtArea.setText("Scegliere una durata massima dei titoli");
+    		TxtArea.setStyle("-fx-text-fill: red");
     		return;
     	}
+    	
+    	int N = 0;
+    	try {
+    		N = Integer.parseInt(TxtDurata.getText());
+    	} catch(NumberFormatException ex) {
+    		TxtArea.appendText("Inserire una durata valida");
+    		TxtArea.setStyle("-fx-text-fill: red");
+    		return;
+    	}
+    	
+    	if(cmbAnno.getValue()!=null && cmbAnna.getValue()!=null && cmbAnna.getValue()-cmbAnno.getValue()<20) {
+    		TxtArea.setText("Scegliere un periodo sensato di almeno 20 anni");
+    		TxtArea.setStyle("-fx-text-fill: red");
+    		return;
+    	}
+    	
     	if(netflix.isSelected() && comboGen.getValue()!=null && cmbAnno.getValue()!=null) {
-    		titoli.addAll(model.dao.listTitoliNetflixGenAnno(cmbTipo.getValue(),comboGen.getValue(), Integer.parseInt(cmbAnno.getValue()),Integer.parseInt(TxtDurata.getText())));
+    		titoli.addAll(model.dao.listTitoliNetflixGenAnno(cmbTipo.getValue(),comboGen.getValue(), cmbAnno.getValue(),Integer.parseInt(TxtDurata.getText()),cmbAnna.getValue()));
     	}
     	else if(netflix.isSelected() && comboGen.getValue()!=null && cmbAnno.getValue()==null) {
     		titoli.addAll(model.dao.listTitoliNetflixGen(cmbTipo.getValue(),comboGen.getValue(), Integer.parseInt(TxtDurata.getText())));
     	}
     	else if(netflix.isSelected() && comboGen.getValue()==null && cmbAnno.getValue()!=null) {
-    		titoli.addAll(model.dao.listTitoliNetflixAnno(cmbTipo.getValue(), Integer.parseInt(cmbAnno.getValue()),Integer.parseInt(TxtDurata.getText())));
+    		titoli.addAll(model.dao.listTitoliNetflixAnno(cmbTipo.getValue(), cmbAnno.getValue(),Integer.parseInt(TxtDurata.getText()),cmbAnna.getValue()));
     	}
     	
     	if(prime.isSelected() && comboGen.getValue()!=null && cmbAnno.getValue()!=null) {
-    		for(Titolo t : model.dao.listTitoliAmazonGenAnno(cmbTipo.getValue(),comboGen.getValue(), Integer.parseInt(cmbAnno.getValue()),Integer.parseInt(TxtDurata.getText()))) {
+    		for(Titolo t : model.dao.listTitoliAmazonGenAnno(cmbTipo.getValue(),comboGen.getValue(), cmbAnno.getValue(),Integer.parseInt(TxtDurata.getText()),cmbAnna.getValue())) {
     			if(!titoli.contains(t)) {
     				titoli.add(t);
     			}
@@ -192,7 +226,7 @@ if(cmbTipo.getValue()==null) {
     	
     	
     	else if(prime.isSelected() && comboGen.getValue()==null && cmbAnno.getValue()!=null) {
-    		for(Titolo t: model.dao.listTitoliAmazonAnno(cmbTipo.getValue(), Integer.parseInt(cmbAnno.getValue()),Integer.parseInt(TxtDurata.getText()))) {
+    		for(Titolo t: model.dao.listTitoliAmazonAnno(cmbTipo.getValue(),cmbAnno.getValue(),Integer.parseInt(TxtDurata.getText()),cmbAnna.getValue())) {
     			if(!titoli.contains(t)) {
     				titoli.add(t);
     			}
@@ -203,7 +237,7 @@ if(cmbTipo.getValue()==null) {
     	
     	
     	if(disneyplus.isSelected() && comboGen.getValue()!=null && cmbAnno.getValue()!=null) {
-    		for(Titolo t:model.dao.listTitoliDisneyGenAnno(cmbTipo.getValue(),comboGen.getValue(), Integer.parseInt(cmbAnno.getValue()),Integer.parseInt(TxtDurata.getText()))) {
+    		for(Titolo t:model.dao.listTitoliDisneyGenAnno(cmbTipo.getValue(),comboGen.getValue(), cmbAnno.getValue(),Integer.parseInt(TxtDurata.getText()),cmbAnna.getValue()) ){
     			if(!titoli.contains(t)) {
     				titoli.add(t);
     			}
@@ -225,7 +259,7 @@ if(cmbTipo.getValue()==null) {
     	
     	
     	else if(disneyplus.isSelected() && comboGen.getValue()==null && cmbAnno.getValue()!=null) {
-    		for(Titolo t:model.dao.listTitoliDisneyAnno(cmbTipo.getValue(), Integer.parseInt(cmbAnno.getValue()),Integer.parseInt(TxtDurata.getText()))) {
+    		for(Titolo t:model.dao.listTitoliDisneyAnno(cmbTipo.getValue(), cmbAnno.getValue(),Integer.parseInt(TxtDurata.getText()),cmbAnna.getValue())) {
     			if(!titoli.contains(t)) {
     				titoli.add(t);
     			}
@@ -243,6 +277,7 @@ if(cmbTipo.getValue()==null) {
     	
     	if(titoli.size()==0) {
     		TxtArea.setText("Non ci sono titoli che rispettino i filtri desiderati");
+    		TxtArea.setStyle("-fx-text-fill: red");
     		return;
     	}
     	ValutMigli.setText("Valutazione Migliore: "+model.OrdinaeBest(titoli).getNome()+" ("+model.OrdinaeBest(titoli).getVoto()+")");
@@ -251,12 +286,17 @@ if(cmbTipo.getValue()==null) {
     	
     	CmbTitoli.getItems().addAll(titoli);
     	
+    	
+    	
     }
 
     @FXML
     void handleAggPl(ActionEvent event) {
-if(CmbTitoli.getValue()==null) {
+    	
+    	btnResetP.setDisable(false);
+    	if(CmbTitoli.getValue()==null) {
 	TxtPlaylist.setText("Scegliere un titolo da aggiungere alla playlist");
+	TxtPlaylist.setStyle("-fx-text-fill: red");
 	return;
 }
 	Titolo t=CmbTitoli.getValue();
@@ -265,32 +305,65 @@ if(CmbTitoli.getValue()==null) {
 	
 	CmbTitoli.getItems().remove(t);
 	
+	
 }
     
 
     @FXML
     void handleGen(ActionEvent event) {
+    	btnReset2.setDisable(false);
     	TxtDuratTot.setText("Durata Totale");
+    	 txtValMed.setText("Valutazione Media");
     	TxtMarat.clear();
+    	TxtMarat.setWrapText(true);
+    	TxtMarat.setStyle("-fx-text-fill: black");
     	if(!netflix2.isSelected() && !prime2.isSelected() && !disneyplus2.isSelected()) {
     		TxtMarat.setText("Scegliere Almeno una Piattaforma");
+    		TxtMarat.setStyle("-fx-text-fill: red");
+    		return;	
+    	}
+    	
+    	if(cmbAnno2.getValue()==null || cmbAnno3.getValue()==null) {
+    		TxtMarat.setText("Scegliere un Periodo");
+    		TxtMarat.setStyle("-fx-text-fill: red");
     		return;	
     	}
     	
     	if(cmbGen2.getValue()==null) {
     		TxtMarat.setText("Scegliere un genere");
+    		TxtMarat.setStyle("-fx-text-fill: red");
     		return;
     	}
     	
     	if(TxtVotomin.getText().equals("")) {
     		TxtMarat.setText("Impostare un voto minimo per i titoli");
+    		TxtMarat.setStyle("-fx-text-fill: red");
+    		return;
+    	}
+    	int V = 0;
+    	try {
+    		V= Integer.parseInt(TxtVotomin.getText());
+    	} catch(NumberFormatException ex) {
+    		TxtMarat.appendText("Inserire una valutazione valida");
+    		TxtMarat.setStyle("-fx-text-fill: red");
     		return;
     	}
     	
     	if( TxtDurataMax.getText().equals("")) {
     		TxtMarat.setText("Impostare una durata massima per la Maratona");
+    		TxtMarat.setStyle("-fx-text-fill: red");
     		return;
     	}
+    	
+    	int D = 0;
+    	try {
+    		D= Integer.parseInt(TxtDurataMax.getText());
+    	} catch(NumberFormatException ex) {
+    		TxtMarat.appendText("Inserire una durata valida");
+    		TxtMarat.setStyle("-fx-text-fill: red");
+    		return;
+    	}
+    	
     	
     	
     	
@@ -306,19 +379,38 @@ if(CmbTitoli.getValue()==null) {
     		Piattaforme.add("D");
     	}
     	
-    	model.CreaGrafo(cmbGen2.getValue(), slNud.getValue(), slViol.getValue(), slAlc.getValue(), slPau.getValue(), Piattaforme, Integer.parseInt(TxtVotomin.getText()),Integer.parseInt(TxtDurataMax.getText()),Integer.parseInt(cmbAnno2.getValue()));
-    	
-    	
-    	if(model.CreaCammino(Integer.parseInt(TxtDurataMax.getText()))==null) {
-    		TxtMarat.setText("Impossibile Generare una Maratona a partire da tali preferenze");
+    	if(cmbAnno3.getValue()-cmbAnno2.getValue()>35 || cmbAnno3.getValue()-cmbAnno2.getValue()<=0) {
+    		TxtMarat.setText("Selezionare un periodo sensato di massimo 30 anni");
+    		TxtMarat.setStyle("-fx-text-fill: red");
     		return;
     	}
-    	List<Titolo>Maratona=model.CreaCammino(Integer.parseInt(TxtDurataMax.getText()));
+    	
+    	if(V<2 || V>9) {
+    		TxtMarat.setText("Inserire una Valutazione compresa tra 2 e 9");
+    		TxtMarat.setStyle("-fx-text-fill: red");
+    		return;
+    	}
+    	if(D<3) {
+    		TxtMarat.setText("Inserire una durata di almeno 3 ore");
+    		TxtMarat.setStyle("-fx-text-fill: red");
+    		return;
+    	}
+    	
+    	
+    	model.CreaGrafo(cmbGen2.getValue(), slNud.getValue(), slViol.getValue(), slAlc.getValue(), slPau.getValue(), Piattaforme, Integer.parseInt(TxtVotomin.getText()),Integer.parseInt(TxtDurataMax.getText())*60,cmbAnno2.getValue(),cmbAnno3.getValue());
+    	
+    	
+    	if(model.CreaCammino(Integer.parseInt(TxtDurataMax.getText())*60)==null) {
+    		TxtMarat.setText("Impossibile Generare una Maratona a partire da tali preferenze");
+    		TxtMarat.setStyle("-fx-text-fill: red");
+    		return;
+    	}
+    	List<Titolo>Maratona=model.CreaCammino(Integer.parseInt(TxtDurataMax.getText())*60);
     	for(Titolo t :Maratona) {
     		TxtMarat.appendText(t+"\n");
     	}
     	
-    	TxtDuratTot.setText("Durata Tot: "+model.calcolopeso(Maratona));
+    	TxtDuratTot.setText("Durata Tot: "+model.calcolopeso(Maratona)/60+" ore e "+model.calcolopeso(Maratona)%60+ " minuti");
     	txtValMed.setText("Valutazione Media: "+Math.round(model.calcolaValMedia(Maratona)*100.0)/100.0);
     	
     	
@@ -339,11 +431,18 @@ slViol.setValue(3);
 slAlc.setValue(3);
 slPau.setValue(3);
 txtValMed.setText("Valutazione Media");
+cmbAnno2.valueProperty().setValue(null);
+cmbAnno3.valueProperty().setValue(null);
+btnReset2.setDisable(true);
     }
 
     @FXML
     void handleResetPlay(ActionEvent event) {
 TxtPlaylist.clear();
+btnResetP.setDisable(true);
+CmbTitoli.getItems().clear();
+CmbTitoli.getItems().addAll(titoli);
+
     }
 
     @FXML
@@ -359,6 +458,8 @@ CmbTitoli.getItems().clear();
 netflix.selectedProperty().set(false);
 prime.selectedProperty().set(false);
 disneyplus.selectedProperty().set(false);
+btnresetR.setDisable(true);
+cmbAnna.valueProperty().setValue(null);
     }
 
     @FXML
@@ -398,6 +499,8 @@ disneyplus.selectedProperty().set(false);
         assert tab2 != null : "fx:id=\"tab2\" was not injected: check your FXML file 'Scene.fxml'.";
         assert tb != null : "fx:id=\"tb\" was not injected: check your FXML file 'Scene.fxml'.";
         assert txtValMed != null : "fx:id=\"txtValMed\" was not injected: check your FXML file 'Scene.fxml'.";
+        assert cmbAnno3 != null : "fx:id=\"cmbAnno3\" was not injected: check your FXML file 'Scene.fxml'.";
+        assert cmbAnna != null : "fx:id=\"cmbAnna\" was not injected: check your FXML file 'Scene.fxml'.";
 
         
 
@@ -409,16 +512,36 @@ disneyplus.selectedProperty().set(false);
     	cmbGen2.getItems().addAll(model.generi);
     	cmbTipo.getItems().add("Film");
     	cmbTipo.getItems().add("Series");
-    	cmbAnno.getItems().add("1980");
-    	cmbAnno.getItems().add("2000");
-    	cmbAnno.getItems().add("2021");
-    	cmbAnno2.getItems().add("1980");
-    	cmbAnno2.getItems().add("2000");
-    	cmbAnno2.getItems().add("2021");
+    	cmbAnno.getItems().add(1930);
+    	cmbAnno.getItems().add(1950);
+    	cmbAnno.getItems().add(1970);
+    	cmbAnno.getItems().add(1990);
+    	cmbAnno.getItems().add(2000);
+    	
+    	cmbAnna.getItems().add(1960);
+    	cmbAnna.getItems().add(1980);
+    	cmbAnna.getItems().add(2000);
+    	cmbAnna.getItems().add(2010);
+    	cmbAnna.getItems().add(2021);
+    	
+    	
+    	cmbAnno2.getItems().add(1930);
+    	cmbAnno2.getItems().add(1950);
+    	cmbAnno2.getItems().add(1970);
+    	cmbAnno2.getItems().add(1990);
+    	cmbAnno2.getItems().add(2000);
+    	
+    	cmbAnno3.getItems().add(1960);
+    	cmbAnno3.getItems().add(1980);
+    	cmbAnno3.getItems().add(2000);
+    	cmbAnno3.getItems().add(2010);
+    	cmbAnno3.getItems().add(2021);
     
     }
 
 }
+
+
 
 
 
