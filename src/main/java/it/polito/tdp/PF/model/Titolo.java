@@ -24,7 +24,7 @@ public class Titolo implements Comparable<Titolo> {
 	}
 	@Override
 	public String toString() {
-		return this.Nome+" ("+this.anno+")"+" "+this.durata+" "+this.voto;
+		return this.Nome+" ("+this.anno+")"+" ("+this.Piattaforma+")";
 	}
 	public Titolo(String nome, int anno, double voto, int durata, String genere, int nudita, int violenza,
 			int alcool, int paura, String trama,String piattaforma) {
