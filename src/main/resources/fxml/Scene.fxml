@@ -37,12 +37,12 @@
                         <CheckBox fx:id="prime" layoutX="122.0" layoutY="111.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="149.0" text="Prime Video" />
                         <CheckBox fx:id="disneyplus" layoutX="122.0" layoutY="152.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="83.0" text="Disney +" />
                         <ComboBox fx:id="cmbAnno" layoutX="603.0" layoutY="98.0" prefWidth="150.0" />
-                        <Label layoutX="608.0" layoutY="67.0" text="ANNO (da 1922 fino a...)" textFill="#48468f">
+                        <Label layoutX="669.0" layoutY="67.0" text="DA" textFill="#48468f">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
                         </Label>
-                        <TextArea fx:id="TxtArea" layoutX="23.0" layoutY="263.0" prefHeight="192.0" prefWidth="569.0" />
+                        <TextArea fx:id="TxtArea" editable="false" layoutX="23.0" layoutY="263.0" prefHeight="192.0" prefWidth="569.0" />
                         <Label layoutX="356.0" layoutY="12.0" text="Ricerca Film e Serie Tv" textFill="#48468f">
                            <font>
                               <Font name="System Bold" size="21.0" />
@@ -64,7 +64,7 @@
                               <Font name="System Bold" size="13.0" />
                            </font>
                         </Text>
-                        <TextArea fx:id="TxtTrama" layoutX="606.0" layoutY="323.0" prefHeight="131.0" prefWidth="297.0" />
+                        <TextArea fx:id="TxtTrama" editable="false" layoutX="606.0" layoutY="323.0" prefHeight="131.0" prefWidth="297.0" />
                         <Label layoutX="105.0" layoutY="472.0" text="Playlist &quot;Guarda più Tardi&quot;" textFill="#48468f">
                            <font>
                               <Font name="System Bold" size="17.0" />
@@ -81,18 +81,18 @@
                            </font>
                         </Button>
                         <ComboBox fx:id="CmbTitoli" layoutX="158.0" layoutY="505.0" prefWidth="150.0" />
-                        <TextArea fx:id="TxtPlaylist" layoutX="330.0" layoutY="472.0" prefHeight="125.0" prefWidth="421.0" />
+                        <TextArea fx:id="TxtPlaylist" editable="false" layoutX="330.0" layoutY="472.0" prefHeight="125.0" prefWidth="421.0" />
                         <Button fx:id="btnRc" layoutX="23.0" layoutY="212.0" mnemonicParsing="false" onAction="#hndlrc" prefHeight="33.0" prefWidth="73.0" style="-fx-background-color: #AEEEEE; -fx-border-color: #48468f;" text="RICERCA" textFill="#48468f">
                            <font>
                               <Font name="System Bold" size="11.0" />
                            </font>
                         </Button>
-                        <Button fx:id="btnResetP" layoutX="164.0" layoutY="551.0" mnemonicParsing="false" onAction="#handleResetPlay" prefHeight="29.0" prefWidth="144.0" style="-fx-background-color: #D8BFD8; -fx-border-color: red;" text="RESETTA PLAYLIST" textFill="#f41c08">
+                        <Button fx:id="btnResetP" disable="true" layoutX="164.0" layoutY="551.0" mnemonicParsing="false" onAction="#handleResetPlay" prefHeight="29.0" prefWidth="144.0" style="-fx-background-color: #D8BFD8; -fx-border-color: red;" text="RESETTA PLAYLIST" textFill="#f41c08">
                            <font>
                               <Font name="System Bold" size="11.0" />
                            </font>
                         </Button>
-                        <Button fx:id="btnresetR" layoutX="843.0" layoutY="211.0" mnemonicParsing="false" onAction="#handleResetRic" prefHeight="35.0" prefWidth="81.0" style="-fx-background-color: #D8BFD8; -fx-border-color: red;" text="RESETTA" textFill="#f80808">
+                        <Button fx:id="btnresetR" disable="true" layoutX="843.0" layoutY="211.0" mnemonicParsing="false" onAction="#handleResetRic" prefHeight="35.0" prefWidth="81.0" style="-fx-background-color: #D8BFD8; -fx-border-color: red;" text="RESETTA" textFill="#f80808">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
@@ -103,6 +103,12 @@
                            </font>
                         </Label>
                         <ComboBox fx:id="cmbTipo" layoutX="67.0" layoutY="31.0" prefHeight="28.0" prefWidth="155.0" />
+                        <ComboBox fx:id="cmbAnna" layoutX="768.0" layoutY="98.0" prefWidth="150.0" />
+                        <Label layoutX="839.0" layoutY="67.0" text="A" textFill="#48468f">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
                      </children>
                   </AnchorPane>
             </content>
@@ -136,7 +142,7 @@
                               <Font name="System Bold" size="12.0" />
                            </font>
                         </Label>
-                        <Label layoutX="457.0" layoutY="133.0" text="DURATA MAX" textFill="#48468f">
+                        <Label layoutX="439.0" layoutY="132.0" text="DURATA MAX (ORE)" textFill="#48468f">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
@@ -169,11 +175,11 @@
                            <font>
                               <Font name="System Bold" size="11.0" />
                            </font></Button>
-                        <Button fx:id="btnReset2" layoutX="168.0" layoutY="318.0" mnemonicParsing="false" onAction="#handleReset2" style="-fx-background-color: #D8BFD8; -fx-border-color: red;" text="RESET" textFill="#ed0707">
+                        <Button fx:id="btnReset2" disable="true" layoutX="168.0" layoutY="318.0" mnemonicParsing="false" onAction="#handleReset2" style="-fx-background-color: #D8BFD8; -fx-border-color: red;" text="RESET" textFill="#ed0707">
                            <font>
                               <Font name="System Bold" size="11.0" />
                            </font></Button>
-                        <TextArea fx:id="TxtMarat" layoutX="31.0" layoutY="360.0" prefHeight="199.0" prefWidth="311.0" />
+                        <TextArea fx:id="TxtMarat" editable="false" layoutX="31.0" layoutY="360.0" prefHeight="199.0" prefWidth="311.0" />
                         <Text fx:id="txtValMed" fill="#48468f" layoutX="385.0" layoutY="379.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Valutazione Media" wrappingWidth="156.07681274414062">
                            <font>
                               <Font size="18.0" />
@@ -185,7 +191,17 @@
                            </font>
                         </Text>
                         <ComboBox fx:id="cmbAnno2" layoutX="676.0" layoutY="226.0" prefWidth="150.0" />
-                        <Label layoutX="737.0" layoutY="205.0" text="ANNO" />
+                        <Label layoutX="742.0" layoutY="205.0" text="DA" textFill="#48468f">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="747.0" layoutY="267.0" text="A" textFill="#48468f">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <ComboBox fx:id="cmbAnno3" layoutX="676.0" layoutY="297.0" prefWidth="150.0" />
                      </children>
                   </AnchorPane>
             </content>
