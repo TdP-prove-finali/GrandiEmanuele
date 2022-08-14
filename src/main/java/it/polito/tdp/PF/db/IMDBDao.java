@@ -41,10 +41,10 @@ public class IMDBDao {
 		}
 	}
 	
-	public List<Titolo> listTitoliNetflixGenAnno(String tipo, String genere,int anno, int durata){
+	public List<Titolo> listTitoliNetflixGenAnno(String tipo, String genere,int anno, int durata,int anno2){
 		String sql = "SELECT i.NOME, i.ANNO, i.VOTO, i.DURATA, i.GENERE, i.NUD, i.VIOL, i.ALC, i.FRI, n.description,n.Piattaforma "
 				+ "FROM imdb_copy i, netflix_titles n "
-				+ "WHERE i.NOME=n.title && i.TIPO=? && i.GENERE LIKE CONCAT('%',?,'%') && i.ANNO<=? && i.DURATA<=?";
+				+ "WHERE i.NOME=n.title && i.TIPO=? && i.GENERE LIKE CONCAT('%',?,'%') && i.ANNO>=? && i.ANNO<=? && i.DURATA<=?";
 		List<Titolo> result = new ArrayList<Titolo>();
 		Connection conn = DBConnect.getConnection();
 
@@ -53,7 +53,8 @@ public class IMDBDao {
 			st.setString(1, tipo);
 			st.setString(2, genere);
 			st.setInt(3,anno );
-			st.setInt(4, durata);
+			st.setInt(4,anno2 );
+			st.setInt(5, durata);
 			ResultSet res = st.executeQuery();
 			while (res.next()) {
 
@@ -98,10 +99,10 @@ public class IMDBDao {
 		}
 	}
 	
-	public List<Titolo> listTitoliNetflixAnno(String tipo, int anno, int durata){
+	public List<Titolo> listTitoliNetflixAnno(String tipo, int anno, int durata,int anno2){
 		String sql = "SELECT i.NOME, i.ANNO, i.VOTO, i.DURATA, i.GENERE, i.NUD, i.VIOL, i.ALC, i.FRI, n.description,n.Piattaforma "
 				+ "FROM imdb_copy i, netflix_titles n "
-				+ "WHERE i.NOME=n.title && i.TIPO=? && i.ANNO<=? && i.DURATA<=?";
+				+ "WHERE i.NOME=n.title && i.TIPO=? && i.ANNO>=? && i.ANNO<=? && i.DURATA<=?";
 		List<Titolo> result = new ArrayList<Titolo>();
 		Connection conn = DBConnect.getConnection();
 
@@ -110,7 +111,8 @@ public class IMDBDao {
 			st.setString(1, tipo);
 			
 			st.setInt(2,anno );
-			st.setInt(3, durata);
+			st.setInt(3,anno2 );
+			st.setInt(4, durata);
 			ResultSet res = st.executeQuery();
 			while (res.next()) {
 
@@ -126,10 +128,10 @@ public class IMDBDao {
 		}
 	}
 	
-	public List<Titolo> listTitoliAmazonGenAnno(String tipo, String genere,int anno, int durata){
+	public List<Titolo> listTitoliAmazonGenAnno(String tipo, String genere,int anno, int durata,int anno2){
 		String sql = "SELECT i.NOME, i.ANNO, i.VOTO, i.DURATA, i.GENERE, i.NUD, i.VIOL, i.ALC, i.FRI, n.description,n.Piattaforma "
 				+ "FROM imdb_copy i, amazon_prime_titles n "
-				+ "WHERE i.NOME=n.title && i.TIPO=? && i.GENERE LIKE CONCAT('%',?,'%') && i.ANNO<=? && i.DURATA<=?";
+				+ "WHERE i.NOME=n.title && i.TIPO=? && i.GENERE LIKE CONCAT('%',?,'%') && i.ANNO>=? && i.ANNO<=? && i.DURATA<=?";
 		List<Titolo> result = new ArrayList<Titolo>();
 		Connection conn = DBConnect.getConnection();
 
@@ -138,7 +140,8 @@ public class IMDBDao {
 			st.setString(1, tipo);
 			st.setString(2, genere);
 			st.setInt(3,anno );
-			st.setInt(4, durata);
+			st.setInt(4,anno2 );
+			st.setInt(5, durata);
 			ResultSet res = st.executeQuery();
 			while (res.next()) {
 
@@ -183,10 +186,10 @@ public class IMDBDao {
 		}
 	}
 	
-	public List<Titolo> listTitoliAmazonAnno(String tipo, int anno, int durata){
+	public List<Titolo> listTitoliAmazonAnno(String tipo, int anno, int durata,int anno2){
 		String sql = "SELECT i.NOME, i.ANNO, i.VOTO, i.DURATA, i.GENERE, i.NUD, i.VIOL, i.ALC, i.FRI, n.description,n.Piattaforma "
 				+ "FROM imdb_copy i, amazon_prime_titles n "
-				+ "WHERE i.NOME=n.title && i.TIPO=? && i.ANNO<=? && i.DURATA<=?";
+				+ "WHERE i.NOME=n.title && i.TIPO=? && i.ANNO>=? && i.ANNO<=? && i.DURATA<=?";
 		List<Titolo> result = new ArrayList<Titolo>();
 		Connection conn = DBConnect.getConnection();
 
@@ -194,8 +197,8 @@ public class IMDBDao {
 			PreparedStatement st = conn.prepareStatement(sql);
 			st.setString(1, tipo);
 			st.setInt(2, anno);
-			
-			st.setInt(3, durata);
+			st.setInt(3, anno2);
+			st.setInt(4, durata);
 			ResultSet res = st.executeQuery();
 			while (res.next()) {
 
@@ -212,10 +215,10 @@ public class IMDBDao {
 	}
 	
 	
-	public List<Titolo> listTitoliDisneyGenAnno(String tipo, String genere,int anno, int durata){
+	public List<Titolo> listTitoliDisneyGenAnno(String tipo, String genere,int anno, int durata,int anno2){
 		String sql = "SELECT i.NOME, i.ANNO, i.VOTO, i.DURATA, i.GENERE, i.NUD, i.VIOL, i.ALC, i.FRI, n.description,n.Piattaforma "
 				+ "FROM imdb_copy i, disney_plus_titles n "
-				+ "WHERE i.NOME=n.title && i.TIPO=? && i.GENERE LIKE CONCAT('%',?,'%')&& i.ANNO<=? && i.DURATA<=?";
+				+ "WHERE i.NOME=n.title && i.TIPO=? && i.GENERE LIKE CONCAT('%',?,'%')&& i.ANNO>=? && i.ANNO<=? && i.DURATA<=?";
 		List<Titolo> result = new ArrayList<Titolo>();
 		Connection conn = DBConnect.getConnection();
 
@@ -224,7 +227,8 @@ public class IMDBDao {
 			st.setString(1, tipo);
 			st.setString(2, genere);
 			st.setInt(3,anno );
-			st.setInt(4, durata);
+			st.setInt(4, anno2);
+			st.setInt(5, durata);
 			ResultSet res = st.executeQuery();
 			while (res.next()) {
 
@@ -269,10 +273,10 @@ public class IMDBDao {
 	}
 	
 	
-	public List<Titolo> listTitoliDisneyAnno(String tipo, int anno, int durata){
+	public List<Titolo> listTitoliDisneyAnno(String tipo, int anno, int durata,int anno2){
 		String sql = "SELECT i.NOME, i.ANNO, i.VOTO, i.DURATA, i.GENERE, i.NUD, i.VIOL, i.ALC, i.FRI, n.description,n.Piattaforma "
 				+ "FROM imdb_copy i, disney_plus_titles n "
-				+ "WHERE i.NOME=n.title && i.TIPO=? && i.ANNO<=? && i.DURATA<=?";
+				+ "WHERE i.NOME=n.title && i.TIPO=? && i.ANNO>=? && i.ANNO<=? && i.DURATA<=?";
 		List<Titolo> result = new ArrayList<Titolo>();
 		Connection conn = DBConnect.getConnection();
 
@@ -280,8 +284,8 @@ public class IMDBDao {
 			PreparedStatement st = conn.prepareStatement(sql);
 			st.setString(1, tipo);
 			st.setInt(2, anno);
-			
-			st.setInt(3, durata);
+			st.setInt(3, anno2);
+			st.setInt(4, durata);
 			ResultSet res = st.executeQuery();
 			while (res.next()) {
 
@@ -297,11 +301,11 @@ public class IMDBDao {
 		}
 	}
 	
-	public List<Titolo>getVertici(String genere,double nud,double viol,double alc,double fri,double vot,int anno){
+	public List<Titolo>getVertici(String genere,double nud,double viol,double alc,double fri,double vot,int anno1,int anno2){
 	
 	String sql="SELECT d.Nome,d.Anno,d.Voto,d.Durata,d.Genere,d.Nud,d.Viol,d.Alc,d.Fri,d.Descr,d.Piattaf "
 			+ "FROM data_tot d "
-			+ "WHERE d.Nud<=? && d.Viol<=?&& d.Alc<=? && d.Fri<=? && d.Genere LIKE CONCAT('%',?,'%') && d.Voto>=? && d.Anno<=?";
+			+ "WHERE d.Nud<=? && d.Viol<=?&& d.Alc<=? && d.Fri<=? && d.Genere LIKE CONCAT('%',?,'%') && d.Voto>=? && d.Anno>=? && d.Anno<=?";
 	
 	List<Titolo> result = new ArrayList<Titolo>();
 	Connection conn = DBConnect.getConnection();
@@ -315,7 +319,8 @@ public class IMDBDao {
 		st.setDouble(4, fri);
 		st.setString(5, genere);
 		st.setDouble(6, vot);
-		st.setInt(7, anno);
+		st.setInt(7, anno1);
+		st.setInt(8, anno2);
 		ResultSet res = st.executeQuery();
 		while (res.next()) {
 
