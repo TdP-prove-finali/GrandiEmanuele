@@ -63,11 +63,11 @@ public List<Titolo>titolipiatt;
 	
 	
 	
-	public void CreaGrafo(String genere,double nud,double viol,double alc,double fri,List<String>piattaforme,double vot,int duratatot,int anno) {
+	public void CreaGrafo(String genere,double nud,double viol,double alc,double fri,List<String>piattaforme,double vot,int duratatot,int anno1,int anno2) {
 		this.grafo=new SimpleGraph<>(DefaultEdge.class);
 		List<Titolo>titolicompl=new ArrayList<Titolo>();
 		
-		titolicompl=dao.getVertici(genere, nud, viol, alc, fri,vot,anno);
+		titolicompl=dao.getVertici(genere, nud, viol, alc, fri,vot,anno1,anno2);
 		titolipiatt=new ArrayList<Titolo>();
 	
 	
