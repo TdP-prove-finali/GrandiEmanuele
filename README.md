@@ -11,7 +11,7 @@ Aprire il progetto e lanciare la classe Main.
 
 Per una breve guida introduttiva, guarda il video al link: https://www.youtube.com/watch?v=wbMAJAll2gM
 
-License
+
 La licenza con cui è rilasciato il software è consultabile al file LICENSE.md.
 Per ulteriori informazioni sul software, visualizzare la cartella Documenti.
 
