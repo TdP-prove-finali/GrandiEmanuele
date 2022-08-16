@@ -7,7 +7,8 @@ Effettuare il fork del progetto e clonare sul proprio editor (ad esempio Eclipse
 Importare sul proprio server locale il database "imdb" situato all'interno del repository (creare un database vuoto con nome "imdb" su Heidisql ed seguire il file sql scaricato dal repository e utilizzare "rileva codifica autonomamente")
 Modificare, all'interno della classe ConnectDB, la password di accesso al Database
 
-Aprire il progetto e lanciare la classe Main
+Aprire il progetto e lanciare la classe Main.
+
 Per una breve guida introduttiva, guarda il video al link: https://www.youtube.com/watch?v=wbMAJAll2gM
 
 License
